@@ -1,0 +1,27 @@
+use('jewellery')
+
+db.jewellery.drop()
+
+db.jewellery.insert(
+    [    
+        {_id:1, type: "necklace", name:"Sapphire and Diamond Drop Pendant", metal:"18k white gold", gemstone:"saphire", price:11071.5, chain_length:16, chain_type:"cable"},
+            
+        {_id:2, type: "earring", name:"Freshwater Cultured Pearl Threader Earrings", metal:"14k rose gold", gemstone:"pearl", uniformity:"excellent", price:412.61},
+            
+        {_id:3, type: "engagement ring", name:"Aquamarine and Diamond Infinity Twist Ring", metal:"14k white gold", gemstone:"aquamarine", price:1089},
+    ],
+    {ordered: false}
+    )
+
+db.jewellery.update({_id:1}, 
+    {$set: 
+        {reviews:
+            [{username:"chris", rating:5, text:"The service that we received during the selection and purchase process was excellent, and the pendant itself is beautiful. My wife loves it!", likes:3, dislikes:0}]
+        }
+    }
+)
+
+db.jewellery.find({gemstone:"pearl", uniformity:"excellent"})
+db.jewellery.remove({gemstone:"pearl", uniformity:"excellent"})
+
+db.jewellery.find().pretty()
