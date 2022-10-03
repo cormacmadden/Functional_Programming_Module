@@ -1,0 +1,56 @@
+import Data.List
+import System.IO
+
+{-
+--EVALUATION
+
+from n = n : from (n+1)
+take 0 xs = []
+take n (x:xs) = x : take (n-1) xs
+
+take 2 (from 42)
+
+scrict:
+take 2 (from 42)
+ = DEF from
+take 2 (42 : from (42+1))
+ = SIMP @ +
+take 2 (42 : from (43))
+ = DEF from
+take 2 (42 : 43 : from (43+1))
+
+lazy:
+take 2 (from 42)
+ = DEF from
+take 2 (42 : from (42+1))
+ = DEF take.2
+42 : take (2-1) from (42+1)
+ = SIMP @ + -
+42 : take 1 (from 43)
+ = DEF from
+42 : take 1 (43 : from (43+1))
+ = DEF take.2
+42 : 43 : take (1-1) from(43+1)
+ = SIMP @ + -
+42 : 43 : take (0) from(44)
+ = DEF take.1
+42:43
+-}
+
+
+sum(ms ++ ns) == sum ms + sum ns
+
+Lazy:
+
+= ++ 
+sum (ms++ns) == sum ms + sum ns
+
+= sum.2
+[] + sum(ms++ns) == """"
+
+= ++
+[] + sum(m:(ms++ns)) == sum ms + sum ns
+= sum.2
+m + m + sum(ms++ns) == """"
+
+
